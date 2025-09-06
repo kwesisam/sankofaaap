@@ -17,7 +17,8 @@ NEXTAUTH_URL="http://localhost:3000"
 
 # Ethereum Configuration
 NEXT_PUBLIC_ETHEREUM_NETWORK="sepolia"
-NEXT_PUBLIC_ESCROW_CONTRACT_ADDRESS="0x7317DA1d5c793Cb84dF9f5f3F811f2F9A810B0A2"
+NEXT_PUBLIC_ESCROW_ADDRESS="0x50bA12644d8E69c28a8694Bf46EeE5F1a47D3eF1"
+NEXT_PUBLIC_CERTIFICATE_CONTRACT_ADDRESS="0x9891A3Fa6039D42Bdb973acaF1Ad8DC57bFC2a45"
 
 # Sepolia RPC URL
 NEXT_PUBLIC_ETHEREUM_RPC_URL="https://ethereum-sepolia.therpc.io"
@@ -28,7 +29,8 @@ SEPOLIA_PRIVATE_KEY="1d45957846bffa2d56a254094bb9c5c5ccdb3ef9df97a97f20af7b28ab6
 
 ## Contract Details
 
-- **Contract Address**: `0x7317DA1d5c793Cb84dF9f5f3F811f2F9A810B0A2`
+- **Escrow Contract Address**: `0x50bA12644d8E69c28a8694Bf46EeE5F1a47D3eF1`
+- **Certificate Contract Address**: `0x9891A3Fa6039D42Bdb973acaF1Ad8DC57bFC2a45`
 - **Network**: Sepolia Testnet (Chain ID: 11155111)
 - **RPC URL**: `https://ethereum-sepolia.therpc.io`
 

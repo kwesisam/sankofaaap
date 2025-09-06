@@ -643,7 +643,7 @@ export default function ArtisanOrdersPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <h1 className="text-4xl font-bold">Order Management</h1>
-                  <p className="mt-2 text-blue-100">
+                  <p className="mt-2 text-black">
                     Track and manage your customer orders efficiently
                   </p>
                 </div>
@@ -651,19 +651,19 @@ export default function ArtisanOrdersPage() {
                   <div className="flex items-center space-x-6">
                     <div className="text-center">
                       <p className="text-2xl font-bold">{stats.totalOrders}</p>
-                      <p className="text-sm text-blue-100">Total Orders</p>
+                      <p className="text-sm  text-black">Total Orders</p>
                     </div>
                     <div className="text-center">
                       <p className="text-2xl font-bold">
                         {stats.inProgressOrders}
                       </p>
-                      <p className="text-sm text-blue-100">In Progress</p>
+                      <p className="text-sm  text-black">In Progress</p>
                     </div>
                     <div className="text-center">
                       <p className="text-2xl font-bold">
                         ₵{stats.totalRevenue.toFixed(0)}
                       </p>
-                      <p className="text-sm text-blue-100">Revenue</p>
+                      <p className="text-sm  text-black">Revenue</p>
                     </div>
                   </div>
                 </div>
