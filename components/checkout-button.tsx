@@ -206,7 +206,7 @@ export default function CheckoutButton({ product }: CheckoutButtonProps) {
         <Button
           size="lg"
           className="w-full bg-amber-600 hover:bg-amber-700"
-          disabled={!product?.inStock || product.wallet_address == ""}
+          disabled={!product?.inStock || product.wallet_address != ""}
         >
           <ShoppingCart className="h-5 w-5 mr-2" />
           {product.inStock
