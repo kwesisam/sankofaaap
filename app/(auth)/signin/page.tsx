@@ -55,6 +55,8 @@ const SignIn = () => {
         redirect: false,
         signature,
       });
+
+      console.log(result)
       if (result?.ok) {
         toast({
           title: "Login Successful",
