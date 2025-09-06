@@ -95,7 +95,7 @@ import { useSession } from "next-auth/react";
 import { getAll, getSpecific, updateData } from "../provider/supabaseProvider";
 import { toast } from "@/hooks/use-toast";
 import { ethers } from "ethers";
-import contractJson  from "../../lib/AuthenticityCertificate.json";
+import contractJson from "../../lib/AuthenticityCertificate.json";
 interface Order {
   id: string;
   orderNumber: string;
@@ -218,7 +218,6 @@ export default function ArtisanOrdersPage() {
           );
           const user = users.find((u: any) => u.uid === rawOrder.user_id);
 
-
           return {
             id: rawOrder.oid,
             orderNumber: rawOrder.oid,
@@ -274,8 +273,6 @@ export default function ArtisanOrdersPage() {
             userAddress: user?.address || "",
           };
         });
-
-
 
         setOrders(transformedOrders);
         setFilteredOrders(transformedOrders);
@@ -365,8 +362,7 @@ export default function ArtisanOrdersPage() {
 
   useEffect(() => {
     connectWallet();
-
-  },[])
+  }, []);
 
   const handleStatusUpdate = async (orderId: string, newStatus: string) => {
     const updateDataRes = await updateData(
@@ -529,8 +525,9 @@ export default function ArtisanOrdersPage() {
     const _provider = new ethers.BrowserProvider(window.ethereum);
     await _provider.send("eth_requestAccounts", []);
     const _signer = await _provider.getSigner();
-    const contractAddress = process.env.NEXT_PUBLIC_CERTIFICATE_CONTRACT_ADDRESS;
-  
+    const contractAddress =
+      process.env.NEXT_PUBLIC_CERTIFICATE_CONTRACT_ADDRESS;
+
     if (!contractAddress) return alert("Contract address not set");
     const _contract = new ethers.Contract(
       contractAddress,
@@ -554,8 +551,6 @@ export default function ArtisanOrdersPage() {
       });
       return;
     }
-
-
 
     try {
       // setLoading(true);
@@ -640,10 +635,10 @@ export default function ArtisanOrdersPage() {
 
   return (
     <TooltipProvider>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 p-6">
+      <div className="min-h-screen  p-6">
         <div className="mx-auto max-w-7xl space-y-8">
           {/* Header */}
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 p-8 text-white">
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-amber-50 to-amber-100 p-8">
             <div className="relative z-10">
               <div className="flex items-center justify-between">
                 <div>
@@ -681,76 +676,58 @@ export default function ArtisanOrdersPage() {
 
           {/* Stats Cards */}
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-yellow-50 to-yellow-100">
+            <Card className="border-0 bg-white shadow-lg">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-yellow-600 text-sm font-medium">
-                      Pending Orders
-                    </p>
-                    <p className="text-3xl font-bold text-yellow-900">
-                      {stats.pendingOrders}
-                    </p>
-                    <p className="text-xs text-yellow-600 mt-1">
-                      Need attention
-                    </p>
+                    <p className="text-sm font-medium">Pending Orders</p>
+                    <p className="text-3xl font-bold">{stats.pendingOrders}</p>
+                    <p className="text-xs  mt-1">Need attention</p>
                   </div>
-                  <Clock className="h-8 w-8 text-yellow-500" />
+                  <Clock className="h-8 w-8 text-amber-500" />
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-purple-50 to-purple-100">
+            <Card className="border-0 shadow-lg ">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-purple-600 text-sm font-medium">
-                      In Progress
-                    </p>
-                    <p className="text-3xl font-bold text-purple-900">
+                    <p className=" text-sm font-medium">In Progress</p>
+                    <p className="text-3xl font-bold ">
                       {stats.inProgressOrders}
                     </p>
-                    <p className="text-xs text-purple-600 mt-1">
-                      Being crafted
-                    </p>
+                    <p className="text-xs  mt-1">Being crafted</p>
                   </div>
-                  <Package className="h-8 w-8 text-purple-500" />
+                  <Package className="h-8 w-8 text-amber-500" />
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-green-50 to-green-100">
+            <Card className="border-0 shadow-lg ">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-green-600 text-sm font-medium">
-                      Completed
-                    </p>
-                    <p className="text-3xl font-bold text-green-900">
+                    <p className=" text-sm font-medium">Completed</p>
+                    <p className="text-3xl font-bold ">
                       {stats.completedOrders}
                     </p>
-                    <p className="text-xs text-green-600 mt-1">
-                      Successfully delivered
-                    </p>
+                    <p className="text-xs  mt-1">Successfully delivered</p>
                   </div>
-                  <CheckCircle className="h-8 w-8 text-green-500" />
+                  <CheckCircle className="h-8 w-8 text-amber-500" />
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-red-50 to-red-100">
+            <Card className="border-0 shadow-lg ">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-red-600 text-sm font-medium">
-                      Urgent Orders
-                    </p>
-                    <p className="text-3xl font-bold text-red-900">
-                      {stats.urgentOrders}
-                    </p>
-                    <p className="text-xs text-red-600 mt-1">High priority</p>
+                    <p className=" text-sm font-medium">Urgent Orders</p>
+                    <p className="text-3xl font-bold ">{stats.urgentOrders}</p>
+                    <p className="text-xs mt-1">High priority</p>
                   </div>
-                  <AlertTriangle className="h-8 w-8 text-red-500" />
+                  <AlertTriangle className="h-8 w-8 text-amber-500" />
                 </div>
               </CardContent>
             </Card>
@@ -758,7 +735,7 @@ export default function ArtisanOrdersPage() {
 
           {/* Quick Actions */}
           <div className="flex flex-wrap gap-4">
-            <Button className="bg-blue-600 hover:bg-blue-700">
+            <Button className="bg-amber-600 hover:bg-amber-700">
               <Plus className="h-4 w-4 mr-2" />
               Create Manual Order
             </Button>
@@ -1661,18 +1638,18 @@ export default function ArtisanOrdersPage() {
 
                             <SheetFooter className="gap-2">
                               {selectedOrder?.nftTokenId == null && (
-                              <Button
-                                onClick={() =>
-                                  handleMintDigitalCertificate(
-                                    selectedOrder?.userAddress,
-                                    selectedOrder || undefined
-                                  )
-                                }
-                                variant="outline"
-                                className="mt-4 border-amber-500"
-                              >
-                                Mint Digital Certificate
-                              </Button>
+                                <Button
+                                  onClick={() =>
+                                    handleMintDigitalCertificate(
+                                      selectedOrder?.userAddress,
+                                      selectedOrder || undefined
+                                    )
+                                  }
+                                  variant="outline"
+                                  className="mt-4 border-amber-500"
+                                >
+                                  Mint Digital Certificate
+                                </Button>
                               )}
 
                               <Sheet

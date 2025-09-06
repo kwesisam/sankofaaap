@@ -204,7 +204,6 @@ export function ArtisanDashboard({ user }: ArtisanDashboardProps) {
   const [orders, setOrders] = useState<Order[]>([]);
   const [listings, setListings] = useState<Listing[]>([]);
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -218,7 +217,10 @@ export function ArtisanDashboard({ user }: ArtisanDashboardProps) {
           business_id: session?.user.id,
         });
 
-        if (getOrdersRes.status === "success" && Array.isArray(getOrdersRes.data)) {
+        if (
+          getOrdersRes.status === "success" &&
+          Array.isArray(getOrdersRes.data)
+        ) {
           const rawOrders = getOrdersRes.data;
           const transformedOrders: Order[] = rawOrders.map((rawOrder: any) => ({
             id: rawOrder.oid,
@@ -244,23 +246,31 @@ export function ArtisanDashboard({ user }: ArtisanDashboardProps) {
           setOrders(transformedOrders);
         }
 
-        if (getProductsRes.status === "success" && Array.isArray(getProductsRes.data)) {
+        if (
+          getProductsRes.status === "success" &&
+          Array.isArray(getProductsRes.data)
+        ) {
           const rawProducts = getProductsRes.data;
-          const transformedListings: Listing[] = rawProducts.map((product: any) => ({
-            id: product.pid,
-            title: product.name,
-            image: product.images?.[0] || "/placeholder.svg",
-            price: `$${product.price}`,
-            stock: product.stock || 0,
-            category: product.category || "Uncategorized",
-            status: product.status || "ready",
-            views: product.views || 0,
-            likes: product.likes || 0,
-          }));
+          const transformedListings: Listing[] = rawProducts.map(
+            (product: any) => ({
+              id: product.pid,
+              title: product.name,
+              image: product.images?.[0] || "/placeholder.svg",
+              price: `$${product.price}`,
+              stock: product.stock || 0,
+              category: product.category || "Uncategorized",
+              status: product.status || "ready",
+              views: product.views || 0,
+              likes: product.likes || 0,
+            })
+          );
           setListings(transformedListings);
         }
 
-        if (getArtisanRes.status === "success" && Array.isArray(getArtisanRes.data)) {
+        if (
+          getArtisanRes.status === "success" &&
+          Array.isArray(getArtisanRes.data)
+        ) {
           const rawArtisans = getArtisanRes.data;
           const transformedArtisans: Artisan[] = rawArtisans.map((a: any) => ({
             name: a.business_name || `${a.first_name} ${a.last_name}`,
@@ -344,17 +354,19 @@ export function ArtisanDashboard({ user }: ArtisanDashboardProps) {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 sm:p-6 bg-gradient-to-b from-amber-50 to-amber-100 rounded-2xl gap-4">
         <div>
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
-              {user.businessName || `${user.name}'s Shop`}
+            <h1 className="text-2xl sm:text-3xl font-bold ">
+              {artisan && artisan[0]?.name
+                ? `${artisan[0].name}'s Shop`
+                : "Shop"}
             </h1>
             {user.isVerified && (
-              <Badge className="bg-amber-600 text-white w-fit">
+              <Badge className="bg-amber-600 w-fit">
                 <CheckCircle className="mr-1 h-3 w-3" />
                 VIP1 Verified
               </Badge>
             )}
           </div>
-          <p className="text-gray-700 mt-1 sm:mt-0">
+          <p className=" mt-1 sm:mt-0">
             {user.isVerified
               ? "You are now VIP1"
               : "Complete your profile to get verified"}
@@ -481,99 +493,98 @@ export function ArtisanDashboard({ user }: ArtisanDashboardProps) {
               </div>
             </CardHeader>
             <CardContent className="space-y-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {listings && listings.map((product) => (
-                <div
-                  key={product.id}
-                  className="flex flex-col sm:flex-col gap-4 rounded-lg border border-gray-200 p-4 bg-white hover:bg-gray-50 transition-colors"
-                >
-                  <div className="h-16 w-16 rounded-lg bg-amber-100 flex items-center justify-center overflow-hidden flex-shrink-0">
-                    <img
-                      src={product.image || "/placeholder.svg"}
-                      alt={product.title}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-
-                  <div className="flex-1 space-y-2 min-w-0">
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                      <h3 className="font-semibold text-gray-900 text-lg">
-                        {product.title}
-                      </h3>
-                      <Badge
-                        variant={getStatusColor(product.status) as any}
-                        className="w-fit"
-                      >
-                        {product.stock > 0
-                          ? "Active"
-                          : "Out of Stock"}
-                      </Badge>
+              {listings &&
+                listings.map((product) => (
+                  <div
+                    key={product.id}
+                    className="flex flex-col sm:flex-col gap-4 rounded-lg border border-gray-200 p-4 bg-white hover:bg-gray-50 transition-colors"
+                  >
+                    <div className="h-16 w-16 rounded-lg bg-amber-100 flex items-center justify-center overflow-hidden flex-shrink-0">
+                      <img
+                        src={product.image || "/placeholder.svg"}
+                        alt={product.title}
+                        className="h-full w-full object-cover"
+                      />
                     </div>
 
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-gray-600">
-                      <span className="font-semibold text-gray-900">
-                        {product.price}
-                      </span>
-                      <span>Stock: {product.stock}</span>
-                      <span>Category: {product.category}</span>
-                    </div>
-
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-gray-600">
-                      <span>{product.views} views</span>
-                      <span>{product.likes} likes</span>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row gap-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleEditProduct(product)}
-                      className="border-amber-600 text-amber-600 hover:bg-amber-50"
-                    >
-                      <Edit className="h-3 w-3" />
-                    </Button>
-                    <Button
-                      variant="outline"
-                      onClick={() => seSelectedDeleting(product.id)}
-                      size="sm"
-                    >
-                      <Trash2 className="h-4 w-4 mt-1 text-destructive" />
-                    </Button>
-                  </div>
-                  {selectedDeleting && selectedDeleting === product.id && (
-                    <Alert
-                      variant="destructive"
-                      className="flex items-start gap-4"
-                    >
-                      <Trash2 className="h-4 w-4 mt-1 text-destructive" />
-                      <div>
-                        <AlertTitle>Delete Product</AlertTitle>
-                        <AlertDescription>
-                          Are you sure you want to delete "
-                          <strong>{product.title}</strong>"? This action cannot
-                          be undone.
-                        </AlertDescription>
-                        <div className="mt-4 flex justify-end gap-2">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => seSelectedDeleting(null)}
-                          >
-                            Cancel
-                          </Button>
-                          <Button
-                            size="sm"
-                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                            onClick={() => handleDeleteProduct(product.id)}
-                          >
-                            Delete
-                          </Button>
-                        </div>
+                    <div className="flex-1 space-y-2 min-w-0">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                        <h3 className="font-semibold text-gray-900 text-lg">
+                          {product.title}
+                        </h3>
+                        <Badge
+                          variant={getStatusColor(product.status) as any}
+                          className="w-fit"
+                        >
+                          {product.stock > 0 ? "Active" : "Out of Stock"}
+                        </Badge>
                       </div>
-                    </Alert>
-                  )}
-                </div>
-              ))}
+
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-gray-600">
+                        <span className="font-semibold text-gray-900">
+                          {product.price}
+                        </span>
+                        <span>Stock: {product.stock}</span>
+                        <span>Category: {product.category}</span>
+                      </div>
+
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-gray-600">
+                        <span>{product.views} views</span>
+                        <span>{product.likes} likes</span>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleEditProduct(product)}
+                        className="border-amber-600 text-amber-600 hover:bg-amber-50"
+                      >
+                        <Edit className="h-3 w-3" />
+                      </Button>
+                      <Button
+                        variant="outline"
+                        onClick={() => seSelectedDeleting(product.id)}
+                        size="sm"
+                      >
+                        <Trash2 className="h-4 w-4 mt-1 text-destructive" />
+                      </Button>
+                    </div>
+                    {selectedDeleting && selectedDeleting === product.id && (
+                      <Alert
+                        variant="destructive"
+                        className="flex items-start gap-4"
+                      >
+                        <Trash2 className="h-4 w-4 mt-1 text-destructive" />
+                        <div>
+                          <AlertTitle>Delete Product</AlertTitle>
+                          <AlertDescription>
+                            Are you sure you want to delete "
+                            <strong>{product.title}</strong>"? This action
+                            cannot be undone.
+                          </AlertDescription>
+                          <div className="mt-4 flex justify-end gap-2">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => seSelectedDeleting(null)}
+                            >
+                              Cancel
+                            </Button>
+                            <Button
+                              size="sm"
+                              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                              onClick={() => handleDeleteProduct(product.id)}
+                            >
+                              Delete
+                            </Button>
+                          </div>
+                        </div>
+                      </Alert>
+                    )}
+                  </div>
+                ))}
             </CardContent>
           </Card>
         </TabsContent>
@@ -588,73 +599,77 @@ export function ArtisanDashboard({ user }: ArtisanDashboardProps) {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {orders && orders.map((order) => (
-                <div key={order.id} className="rounded-lg border p-4 space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <Avatar className="h-10 w-10">
-                        <AvatarImage
-                          src={order.buyerAvatar || "/placeholder.svg"}
-                        />
-                        <AvatarFallback>
-                          {order.buyerName.charAt(0)}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <h3 className="font-semibold">{order.productName}</h3>
+              {orders &&
+                orders.map((order) => (
+                  <div
+                    key={order.id}
+                    className="rounded-lg border p-4 space-y-4"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <Avatar className="h-10 w-10">
+                          <AvatarImage
+                            src={order.buyerAvatar || "/placeholder.svg"}
+                          />
+                          <AvatarFallback>
+                            {order.buyerName.charAt(0)}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <h3 className="font-semibold">{order.productName}</h3>
+                          <p className="text-sm text-muted-foreground">
+                            by {order.buyerName}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-semibold">{order.price}</p>
                         <p className="text-sm text-muted-foreground">
-                          by {order.buyerName}
+                          Order {order.id}
                         </p>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <p className="font-semibold">{order.price}</p>
-                      <p className="text-sm text-muted-foreground">
-                        Order {order.id}
-                      </p>
-                    </div>
-                  </div>
 
-                  <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div>
-                      <Label className="text-muted-foreground">
-                        Shipping Status
-                      </Label>
-                      <div className="flex items-center space-x-2 mt-1">
-                        {order.status === "shipped" ? (
-                          <Truck className="h-4 w-4 text-primary" />
-                        ) : (
-                          <Clock className="h-4 w-4 text-muted-foreground" />
-                        )}
-                        <span className="capitalize">{order.status}</span>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <Label className="text-muted-foreground">
+                          Shipping Status
+                        </Label>
+                        <div className="flex items-center space-x-2 mt-1">
+                          {order.status === "shipped" ? (
+                            <Truck className="h-4 w-4 text-primary" />
+                          ) : (
+                            <Clock className="h-4 w-4 text-muted-foreground" />
+                          )}
+                          <span className="capitalize">{order.status}</span>
+                        </div>
+                      </div>
+                      <div>
+                        <Label className="text-muted-foreground">
+                          Escrow Status
+                        </Label>
+                        <div className="flex items-center space-x-2 mt-1">
+                          <Badge
+                            variant={
+                              getEscrowStatusColor(order.escrowStatus) as any
+                            }
+                          >
+                            {order.escrowStatus === "held"
+                              ? "Payment Held"
+                              : "Payment Released"}
+                          </Badge>
+                        </div>
                       </div>
                     </div>
+
                     <div>
                       <Label className="text-muted-foreground">
-                        Escrow Status
+                        Shipping Address
                       </Label>
-                      <div className="flex items-center space-x-2 mt-1">
-                        <Badge
-                          variant={
-                            getEscrowStatusColor(order.escrowStatus) as any
-                          }
-                        >
-                          {order.escrowStatus === "held"
-                            ? "Payment Held"
-                            : "Payment Released"}
-                        </Badge>
-                      </div>
+                      <p className="text-sm mt-1">{order.shippingAddress}</p>
                     </div>
-                  </div>
 
-                  <div>
-                    <Label className="text-muted-foreground">
-                      Shipping Address
-                    </Label>
-                    <p className="text-sm mt-1">{order.shippingAddress}</p>
-                  </div>
-
-                  {/* {order.status === "pending" && (
+                    {/* {order.status === "pending" && (
                     <div className="flex items-center space-x-2">
                       <Input
                         placeholder="Enter tracking ID"
@@ -673,7 +688,7 @@ export function ArtisanDashboard({ user }: ArtisanDashboardProps) {
                     </div>
                   )} */}
 
-                  {/* {order.trackingId && (
+                    {/* {order.trackingId && (
                     <div>
                       <Label className="text-muted-foreground">
                         Tracking ID
@@ -683,8 +698,8 @@ export function ArtisanDashboard({ user }: ArtisanDashboardProps) {
                       </p>
                     </div>
                   )} */}
-                </div>
-              ))}
+                  </div>
+                ))}
             </CardContent>
           </Card>
         </TabsContent>

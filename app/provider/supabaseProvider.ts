@@ -109,7 +109,7 @@ export const signUpWithEmail = async (
       email,
       password,
       options: {
-        emailRedirectTo: "http://localhost:3000/signin",
+        emailRedirectTo: "https://sankofapp.vercel.app/signin",
         data: {
           fullname,
           type,

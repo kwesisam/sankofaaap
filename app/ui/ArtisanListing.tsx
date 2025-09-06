@@ -801,15 +801,15 @@ export default function ArtisanListingsPage({
 
   return (
     <TooltipProvider>
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-teal-50 p-6">
+      <div className="min-h-screen  p-6">
         <div className="mx-auto max-w-7xl space-y-8">
           {/* Header */}
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 p-8 text-white">
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-amber-50 to-amber-10 p-8 ">
             <div className="relative z-10">
               <div className="flex items-center justify-between">
                 <div>
                   <h1 className="text-4xl font-bold">My Listings</h1>
-                  <p className="mt-2 text-emerald-100">
+                  <p className="mt-2 ">
                     Manage your products and showcase your craftsmanship
                   </p>
                 </div>
@@ -819,19 +819,19 @@ export default function ArtisanListingsPage({
                       <p className="text-2xl font-bold">
                         {stats.activeProducts}
                       </p>
-                      <p className="text-sm text-emerald-100">Active</p>
+                      <p className="text-sm ">Active</p>
                     </div>
                     <div className="text-center">
                       <p className="text-2xl font-bold">
                         {stats.totalViews.toLocaleString()}
                       </p>
-                      <p className="text-sm text-emerald-100">Total Views</p>
+                      <p className="text-sm ">Total Views</p>
                     </div>
                     <div className="text-center">
                       <p className="text-2xl font-bold">
                         ₵{stats.totalRevenue.toFixed(0)}
                       </p>
-                      <p className="text-sm text-emerald-100">Revenue</p>
+                      <p className="text-sm">Revenue</p>
                     </div>
                   </div>
                 </div>
@@ -844,78 +844,78 @@ export default function ArtisanListingsPage({
 
           {/* Stats Cards */}
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-blue-50 to-blue-100">
+            <Card className="border-0 shadow-lg">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-blue-600 text-sm font-medium">
+                    <p className=" text-sm font-medium">
                       Active Listings
                     </p>
-                    <p className="text-3xl font-bold text-blue-900">
+                    <p className="text-3xl font-bold">
                       {stats.activeProducts}
                     </p>
-                    <p className="text-xs text-blue-600 mt-1">
+                    <p className="text-xs ">
                       of {stats.totalProducts} total
                     </p>
                   </div>
-                  <Package className="h-8 w-8 text-blue-500" />
+                  <Package className="h-8 w-8 text-amber-500" />
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-green-50 to-green-100">
+            <Card className="border-0 shadow-lg ">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-green-600 text-sm font-medium">
+                    <p className=" text-sm font-medium">
                       Total Revenue
                     </p>
-                    <p className="text-3xl font-bold text-green-900">
+                    <p className="text-3xl font-bold">
                       ${stats.totalRevenue.toFixed(0)}
                     </p>
-                    <p className="text-xs text-green-600 mt-1">
+                    <p className="text-xs mt-1">
                       From all listings
                     </p>
                   </div>
-                  <DollarSign className="h-8 w-8 text-green-500" />
+                  <DollarSign className="h-8 w-8 text-amber-500" />
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-purple-50 to-purple-100">
+            <Card className="border-0 shadow-lg">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-purple-600 text-sm font-medium">
+                    <p className=" text-sm font-medium">
                       Avg Rating
                     </p>
-                    <p className="text-3xl font-bold text-purple-900">
+                    <p className="text-3xl font-bold ">
                       {stats.avgRating.toFixed(1)}
                     </p>
-                    <p className="text-xs text-purple-600 mt-1">
+                    <p className="text-xs mt-1">
                       Across all products
                     </p>
                   </div>
-                  <Star className="h-8 w-8 text-purple-500" />
+                  <Star className="h-8 w-8 text-amber-500" />
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-orange-50 to-orange-100">
+            <Card className="border-0 shadow-lg ">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-orange-600 text-sm font-medium">
+                    <p className=" text-sm font-medium">
                       Low Stock Alert
                     </p>
-                    <p className="text-3xl font-bold text-orange-900">
+                    <p className="text-3xl font-bold">
                       {stats.lowStockProducts}
                     </p>
-                    <p className="text-xs text-orange-600 mt-1">
+                    <p className="text-xs  mt-1">
                       Need restocking
                     </p>
                   </div>
-                  <AlertTriangle className="h-8 w-8 text-orange-500" />
+                  <AlertTriangle className="h-8 w-8 text-amber-500" />
                 </div>
               </CardContent>
             </Card>
@@ -925,7 +925,7 @@ export default function ArtisanListingsPage({
           <div className="flex flex-wrap gap-4">
             <Sheet open={newProductSheet} onOpenChange={setNewProductSheet}>
               <SheetTrigger asChild>
-                <Button className="bg-emerald-600 hover:bg-emerald-700">
+                <Button className="bg-amber-600 hover:bg-amber-700">
                   <Plus className="h-4 w-4 mr-2" />
                   Add New Product
                 </Button>
@@ -1400,7 +1400,7 @@ export default function ArtisanListingsPage({
                 </div>
 
                 <div className="flex items-end">
-                  <Button onClick={filterAndSortProducts} className="w-full">
+                  <Button onClick={filterAndSortProducts} className="w-full bg-amber500 hover:bg-amber-600">
                     <RefreshCw className="h-4 w-4 mr-2" />
                     Refresh
                   </Button>
@@ -1411,14 +1411,14 @@ export default function ArtisanListingsPage({
 
           {/* Products List */}
           <Card className="border-0 shadow-xl">
-            <CardHeader className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-t-lg">
+            <CardHeader className="bg-gradient-to-r from-amber-500 to-amber-500 text-white rounded-t-lg">
               <div className="flex items-center justify-between">
                 <div>
                   <CardTitle className="flex items-center gap-2">
                     <Package className="h-5 w-5" />
                     My Products ({filteredProducts?.length ?? 0})
                   </CardTitle>
-                  <CardDescription className="text-emerald-100">
+                  <CardDescription className="">
                     Manage your product listings and inventory
                   </CardDescription>
                 </div>
@@ -1771,7 +1771,7 @@ export default function ArtisanListingsPage({
                                   </Button>
                                   <Button
                                     onClick={handleUpdateProduct}
-                                    className="bg-emerald-600 hover:bg-emerald-700"
+                                    className="bg-amber-600 hover:bg-amber-700"
                                   >
                                     <CheckCircle className="h-4 w-4 mr-2" />
                                     Save Changes
